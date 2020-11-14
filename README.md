@@ -2,6 +2,8 @@
 
 a wrapper arround the the star wars api
 
+heads up: it's a little 🤏 slow
+
 -> http://swapi.dev/
 
 # Documentation
