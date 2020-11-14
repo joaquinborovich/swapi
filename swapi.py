@@ -3,7 +3,8 @@ import requests
 from utils import Utils
 from config import config
 import json
-from resources import *
+
+import person, film
 
 class swapi:
 
@@ -14,7 +15,7 @@ class swapi:
         return requests.get(q).json()
         
     @staticmethod
-    def get_dirty(url):
+    def load_dirty(url):
         return requests.get(url).json()
         
     @staticmethod
@@ -41,14 +42,46 @@ class swapi:
 
 
         # deserialize a JSON string
-        return Film(**film_dict)
+        return film.Film(**film_dict)
 
         
     @staticmethod
-    def GetCharacters(key):
-        pass
+    def get_people(key=None, url=None):
+        if key != None: 
+            people_dict = swapi.load('people', key)
+        elif url != None:
+            people_dict = swapi.load_dirty(url)
+        else:
+            return None
+
+        if 'detail' in people_dict:
+            return None
+
+        if 'count' in people_dict:
+            list_of_people_dict =  [person.Person(**i_dict) for i_dict in people_dict['results']] 
+
+            while people_dict['next'] != None :
+                if url != None:
+                    people_dict = swapi.load_dirty(url=people_dict['next'])
+
+                list_of_people_dict.extend([person.Person(**i_dict) for i_dict in people_dict['results']])
+
+            return list_of_people_dict
+        else:
+            return person.Person(**people_dict)
+
+        
+
+        # deserialize a JSON string
+    
     
 if __name__ == "__main__":
     print("What star wars actually is: ")
     for i in range(1, 4):
         print("\t -> ", swapi.GetFilms(i))
+
+    uno = swapi.GetFilms(1)
+    for p in uno.characters:
+        print(p)
+        
+        
