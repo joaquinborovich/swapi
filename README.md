@@ -8,10 +8,7 @@ a wrapper arround the the star wars api
 💚 swapi.GetFilms(key) -> Gets you a Film type object with all the info within the api. only numered keys (ints and str numbers) are implemented.
 
 # Examples:
-executing: python3.7 swapi.py prints the best three movies (take a guess)
-
-running: print(swapi.GetFilms(1)) 
-     []: A New Hope (http://swapi.dev/api/films/1/)
+executing: python3.7 swapi.py prints the best three movies
 
 
 # Coming Soon:
