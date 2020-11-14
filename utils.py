@@ -7,4 +7,4 @@ class Utils:
         if type(key) == str and key.is_digit():
             return True
         
-        else return False
+        return False
